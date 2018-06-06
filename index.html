@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="http://www.lamma.rete.toscana.it/sites/all/themes/lamma/favicon.ico" type="image/vnd.microsoft.icon" />
+    <title>Analisi meteo AIB - Regione Toscana</title>
+
+    <!-- START STYLE SECTION -->
+    <!-- Latest compiled and minified bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional bootstrap theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Lightbox theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.1.1/ekko-lightbox.min.css" crossorigin="anonymous">
+    <!-- Custom theme -->
+    <link rel="stylesheet" href="assets/css/aib-styles.css">
+    <!-- END STYLE SECTION -->
+
+    <!-- START SCRIPT SECTION -->
+    <!-- Latest compiled and minified jquery JavaScript -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <!-- Latest compiled and minified bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified ekko-lightbox JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.1.1/ekko-lightbox.min.js" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified bootstrap-waitingfor JavaScript -->
+    <script src='js/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js'></script>
+    <!-- Latest compiled and minified jspdf JavaScript -->
+    <script src='js/jsPDF/dist/jspdf.min.js'></script>
+    <script src='js/jsPDF/libs/html2pdf.js'></script>
+    <script src="js/utils/stopExecutionOnTimeOut.js"></script>
+    <!-- Latest compiled and minified moment JavaScript -->
+    <script src='js/moment/moment.min.js'></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- END SCRIPT SECTION -->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class=" col-sm-2" style="text-align:center;">
+                    <a href="http://www.regione.toscana.it/enti-e-associazioni/agricoltura-e-foreste/servizio-antincendio" target="_blank" class="img-thumbnail">
+                        <img class="img-fluid" src="assets/img/loghi/antincendiboschivinumverde.jpg" alt="Anti Incendi Boschivi" width="100">
+                    </a>
+                </div>
+                <div class="col-sm-8" style="text-align:center;">
+                    <h2 id="bollettino-title">Analisi meteo AIB</h2>
+                    <p id="bollettino-title-giorno" class="lead bg-danger text-danger"></p>
+                </div>
+                <div class=" col-sm-2" style="text-align:center;">
+                    <a href="http://www.lamma.rete.toscana.it/" target="_blank" class="img-thumbnail">
+                        <img class="img-fluid" src="assets/img/loghi/logo.png" alt="Consorzio LaMMA" width="160">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-8 loc_form">
+                        <div class="form-group">
+                            <label id="rischio-text" for="bollettino-rischio" class="control-label">LIVELLO DI RISCHIO:</label>
+                            <div class="dropdown">
+                                <button id="bollettino-rischio" value="BASSO" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								BASSO
+								<span class="caret"></span>
+							  </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="javascript:void(0);" class="rischio-basso" data-value="BASSO">BASSO</a></li>
+                                    <li><a href="javascript:void(0);" class="rischio-moderato" data-value="MODERATO">MODERATO</a></li>
+                                    <li><a href="javascript:void(0);" class="rischio-alto" data-value="ALTO">ALTO</a></li>
+                                    <li><a href="javascript:void(0);" class="rischio-molto-alto" data-value="MOLTO ALTO">MOLTO ALTO</a></li>
+                                    <li><a href="javascript:void(0);" class="rischio-estremo" data-value="ESTREMO">ESTREMO</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 loc_form">
+                        <div class="form-group">
+                            <label id="cosa-abbiamo-avuto-label" class="control-label" for="bollettino-abbiamo-avuto">COSA ABBIAMO AVUTO:</label>
+                            <textarea class="form-control" id="bollettino-abbiamo-avuto" placeholder="Abbiamo avuto..." maxlength="1400"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label id="cosa-ci-aspettiamo-label" class="control-label" for="bollettino-ci-aspettiamo">COSA CI ASPETTIAMO:</label>
+                            <textarea class="form-control" id="bollettino-ci-aspettiamo" placeholder="Ci aspettiamo..." maxlength="1400"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label id="num-progressivo-label" class="control-label" for="num-progressivo">N° PROGRESSIVO:</label>
+                            <textarea class="form-control" id="num-progressivo" placeholder="N° progressivo..." maxlength="50"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group text-left">
+                            <button id="flyer_download_btn" disabled type="button" class="btn btn-danger" tabindex="10">Download .PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p id="fwi-title" class="bg-primary text-center">INDICE FWI (comportamento del fuoco - pericolosità potenziale)
+                            <BR/>
+                        </p>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-ffwi">Visualizza legenda</button>
+                        <div id="view-legend-ffwi" class="collapse">
+                            <img id="legend-ffwi" class="img-fluid" src="assets/img/legende/ffwi_legend.gif" alt="Legenda FFWI" style="width:180px">
+                        </div>
+                        <div class="thumbnail">
+                            <a id="ffwi-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
+                                <img id="ffwi-image" class="img-fluid" src="" alt="FFWI" style="width:65%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p id="umidita-title" class="bg-primary text-center">UMIDITA' RELATIVA MASSIMA REGISTRATA
+                            <BR/>
+                        </p>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-umidita">Visualizza legenda</button>
+                        <div id="view-legend-umidita" class="collapse">
+                            <img id="legend-umidita" class="img-fluid" src="assets/img/legende/umidita_legend.png" alt="Legenda UMIDITA'" style="width:140px">
+                        </div>
+                        <div class="thumbnail">
+                            <a id="umidita-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
+                                <img id="umidita-image" class="img-fluid" src="" alt="UMIDITA'" style="width:65%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p id="situazione-meteo-text" class="bg-primary text-center">SITUAZIONE METEO</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="bg-info">SITUAZIONE SINOTTICA:</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p id="sinottica-text"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <a id="zt500-image-lightbox" href="assets/img/sinottiche/zt500.z3.3.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche1">
+                                <img id="zt500-image" class="img-fluid" src="assets/img/sinottiche/zt500.z3.3.png" alt="zt500.z3.3" style="width:70%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <a id="zt850-image-lightbox" href="assets/img/sinottiche/zt850.z3.3.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche1">
+                                <img id="zt850-image" class="img-fluid" src="assets/img/sinottiche/zt850.z3.3.png" alt="zt850.z3.3" style="width:70%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <a id="t2max-image-lightbox" href="assets/img/sinottiche/t2max.z2.1.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
+                                <img id="t2max-image" class="img-fluid" src="assets/img/sinottiche/t2max.z2.1.png" alt="t2max.z2.1" style="width:70%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="thumbnail">
+                            <a id="wind10-image-lightbox" href="assets/img/sinottiche/wind10.z2.5.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
+                                <img id="wind10-image" class="img-fluid" src="assets/img/sinottiche/wind10.z2.5.png" alt="wind10.z2.5" style="width:70%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="bg-primary text-center">VARIABILI METEOROLOGICHE</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p id="rh2mz3-11-ora-text" class="bg-primary text-center">12:00 ora locale</p>
+                        <div class="thumbnail">
+                            <a id="rh2mz3_11-image-lightbox" href="assets/img/vento_umidita/rh2mz3_11.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                <img id="rh2mz3_11-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_11.png" alt="rh2mz3" style="width:80%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p id="rh2mz3-14-ora-text" class="bg-primary text-center">15:00 ora locale</p>
+                        <div class="thumbnail">
+                            <a id="rh2mz3_14-image-lightbox" href="assets/img/vento_umidita/rh2mz3_14.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                <img id="rh2mz3_14-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_14.png" alt="rh2mz3" style="width:80%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p id="rh2mz3-17-ora-text" class="bg-primary text-center">18:00 ora locale</p>
+                        <div class="thumbnail">
+                            <a id="rh2mz3_17-image-lightbox" href="assets/img/vento_umidita/rh2mz3_17.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                <img id="rh2mz3_17-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_17.png" alt="rh2mz3" style="width:80%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p id="rh2mz3-20-ora-text" class="bg-primary text-center">21:00 ora locale</p>
+                        <div class="thumbnail">
+                            <a id="rh2mz3_20-image-lightbox" href="assets/img/vento_umidita/rh2mz3_20.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                <img id="rh2mz3_20-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_20.png" alt="rh2mz3" style="width:80%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='js/utils/loghi.js'></script>
+    <script src='js/app.js'></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                alwaysShowClose: false
+            });
+        });
+    </script>
+</body>
+
+</html>

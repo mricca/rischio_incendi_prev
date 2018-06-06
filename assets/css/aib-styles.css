@@ -1,0 +1,67 @@
+/*#content {
+    background-color: #FFFFFF;
+}*/
+
+.fires-report {
+    position: relative;
+    height: 100%;
+}
+
+.fires-report iframe,
+.fires-report .no_iframe {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #666;
+    background-color: #ddd;
+}
+
+.fires-report .no_iframe>div {
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-weight: normal;
+}
+
+@media all and (min-width: 768px) {
+    .fires-report .btn.btn-block {
+        display: inline;
+        width: auto;
+    }
+}
+.rischio-basso {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #3CBC3D !important;
+  text-transform: uppercase;
+}
+
+.rischio-moderato {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #FFE600 !important;
+  text-transform: uppercase;
+}
+
+.rischio-alto {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #FF7D00 !important;
+  text-transform: uppercase;
+}
+
+.rischio-molto-alto {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #C80000 !important;
+  text-transform: uppercase;
+}
+
+.rischio-estremo {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #B5199D !important;
+  text-transform: uppercase;
+}
