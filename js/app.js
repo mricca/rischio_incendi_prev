@@ -55,8 +55,8 @@
 (function() {
     "use strict";
 
-    $('#zt500-image').attr('src', "assets/img/sinottiche/zt500.z3.3.png?timeId=" + new Date().getTime());
-    $('#zt500-image-lightbox').attr('href', "assets/img/sinottiche/zt500.z3.3.png?timeId=" + new Date().getTime());
+    // $('#zt500-image').attr('src', "assets/img/sinottiche/zt500.z3.3.png?timeId=" + new Date().getTime());
+    // $('#zt500-image-lightbox').attr('href', "assets/img/sinottiche/zt500.z3.3.png?timeId=" + new Date().getTime());
 
     $('#zt850-image').attr('src', "assets/img/sinottiche/zt850.z3.3.png?timeId=" + new Date().getTime());
     $('#zt850-image-lightbox').attr('href', "assets/img/sinottiche/zt850.z3.3.png?timeId=" + new Date().getTime());
@@ -126,7 +126,8 @@
 
             //document.getElementById("fwi-title").innerHTML += moment(formatDataYesterday).format('dddd, Do MMMM YYYY');
             document.getElementById("fwi-title").innerHTML += moment(formatData).format('dddd, Do MMMM YYYY');
-
+            document.getElementById("rddd-title").innerHTML += moment(formatData).format('dddd, Do MMMM YYYY');
+            document.getElementById("scenario-rischio-title").innerHTML += moment(formatData).format('dddd, Do MMMM YYYY');
 
             document.getElementById("umidita-title").innerHTML += moment(formatDataYesterday).format('dddd, Do MMMM YYYY');
             document.getElementById("bollettino-title-giorno").innerHTML = moment(formatData).format('dddd, Do MMMM YYYY');
@@ -134,11 +135,17 @@
             // $('#ffwi-image-lightbox').attr('href', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run1_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
             // $('#ffwi-image').attr('src', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run1_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
 
-            $('#ffwi-image-lightbox').attr('href', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
-            $('#ffwi-image').attr('src', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#scenario-rischio-image-lightbox').attr('href', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_4classi_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#scenario-rischio-image').attr('src', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_4classi_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
 
-            $('#umidita-image-lightbox').attr('href', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_datimeteo?map=wms_" + anno + "/datimeteo_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Umid_maxur_sp_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
-            $('#umidita-image').attr('src', "http://geoportale.lamma.rete.toscana.it/cgi-bin/wms_datimeteo?map=wms_" + anno + "/datimeteo_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Umid_maxur_sp_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#rddd-image-lightbox').attr('href', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rddd_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#rddd-image').attr('src', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rddd_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+
+            $('#ffwi-image-lightbox').attr('href', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#ffwi-image').attr('src', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_rischio_prev?map=wms_" + anno + "/ris_prev_incendio_wms_" + formatData + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Comuni_Rfwi_Run0_" + formatData + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+
+            $('#umidita-image-lightbox').attr('href', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_datimeteo?map=wms_" + anno + "/datimeteo_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Umid_maxur_sp_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
+            $('#umidita-image').attr('src', "https://geoportale.lamma.rete.toscana.it/cgi-bin/wms_datimeteo?map=wms_" + anno + "/datimeteo_wms_" + formatDataYesterday + ".map&service=WMS&version=1.1.0&request=GetMap&layers=Umid_maxur_sp_" + formatDataYesterday + ",Comuni&styles=default&bbox=548174.875,4670721.0,787174.875,4933721.0&width=465&height=512&srs=EPSG:32632&format=image/png");
 
             /*
             Refs:
@@ -236,10 +243,14 @@
                 // for more examples about file api
                 // take a look at https://scotch.io/tutorials/use-the-html5-file-api-to-work-with-files-locally-in-the-browser
 
-                var zt500_img = $('#zt500-image').attr('src');
-                var zt500_legend_img = "assets/img/sinottiche/zt500_legend.png";
-                var zt850_img = $('#zt850-image').attr('src');
-                var zt850_legend_img = "assets/img/sinottiche/zt850_legend.png";
+                // var zt500_img = $('#zt500-image').attr('src');
+                // var zt500_legend_img = "assets/img/sinottiche/zt500_legend.png";
+                var rddd_img = $('#rddd-image').attr('src');
+                var rddd_legend_img = $('#legend-rddd').attr('src');
+                // var zt850_img = $('#zt850-image').attr('src');
+                // var zt850_legend_img = "assets/img/sinottiche/zt850_legend.png";
+                var liz3_14_img = $('#liz314-image').attr('src');
+                // var liz3_14_legend_img = "assets/img/sinottiche/zt850_legend.png";
                 var t2max_img = $('#t2max-image').attr('src');
                 var t2max_legend_img = "assets/img/sinottiche/t2max_legend.png";
                 var wind10_img = $('#wind10-image').attr('src');
@@ -254,10 +265,12 @@
                 var umidita_img = $('#umidita-image').attr('src');
                 var umidita_legend_img = $('#legend-umidita').attr('src');
 
-                var zt500 = null;
-                var zt500_legend = null;
-                var zt850 = null;
-                var zt850_legend = null;
+                // var zt500 = null;
+                // var zt500_legend = null;
+                // var zt850 = null;
+                // var zt850_legend = null;
+                var liz3_14 = null;
+                // var liz3_14_legend = null;
                 var t2max = null;
                 var t2max_legend = null;
                 var wind10 = null;
@@ -271,6 +284,8 @@
                 var ffwi_legend = null;
                 var umidita = null;
                 var umidita_legend = null;
+                var rddd = null;
+                var rddd_legend = null;
 
                 var count = 0;
                 var decount = function() {
@@ -315,41 +330,50 @@
                     img.id = id;
                 }
 
-                convertImgToDataURL(zt500_img, function(base64Img, img) {
-                    zt500 = {
-                        type: 'PNG'
-                    };
-                    zt500.src = base64Img;
-                    zt500.w = img.width;
-                    zt500.h = img.height - 200;
-                }, undefined, "zt500_img");
+                // convertImgToDataURL(zt500_img, function(base64Img, img) {
+                //     zt500 = {
+                //         type: 'PNG'
+                //     };
+                //     zt500.src = base64Img;
+                //     zt500.w = img.width;
+                //     zt500.h = img.height - 200;
+                // }, undefined, "zt500_img");
 
-                convertImgToDataURL(zt500_legend_img, function(base64Img, img) {
-                    zt500_legend = {
-                        type: 'PNG'
-                    };
-                    zt500_legend.src = base64Img;
-                    zt500_legend.w = img.width;
-                    zt500_legend.h = img.height;
-                }, undefined, "zt500_img_legend");
+                // convertImgToDataURL(zt500_legend_img, function(base64Img, img) {
+                //     zt500_legend = {
+                //         type: 'PNG'
+                //     };
+                //     zt500_legend.src = base64Img;
+                //     zt500_legend.w = img.width;
+                //     zt500_legend.h = img.height;
+                // }, undefined, "zt500_img_legend");
 
-                convertImgToDataURL(zt850_img, function(base64Img, img) {
-                    zt850 = {
-                        type: 'PNG'
-                    };
-                    zt850.src = base64Img;
-                    zt850.w = img.width;
-                    zt850.h = img.height - 200;
-                }, undefined, "zt850_img");
+                // convertImgToDataURL(zt850_img, function(base64Img, img) {
+                //     zt850 = {
+                //         type: 'PNG'
+                //     };
+                //     zt850.src = base64Img;
+                //     zt850.w = img.width;
+                //     zt850.h = img.height - 200;
+                // }, undefined, "zt850_img");
+                //
+                // convertImgToDataURL(zt850_legend_img, function(base64Img, img) {
+                //     zt850_legend = {
+                //         type: 'PNG'
+                //     };
+                //     zt850_legend.src = base64Img;
+                //     zt850_legend.w = img.width;
+                //     zt850_legend.h = img.height;
+                // }, undefined, "zt850_img_legend");
 
-                convertImgToDataURL(zt850_legend_img, function(base64Img, img) {
-                    zt850_legend = {
+                convertImgToDataURL(liz3_14_img, function(base64Img, img) {
+                    liz3_14 = {
                         type: 'PNG'
                     };
-                    zt850_legend.src = base64Img;
-                    zt850_legend.w = img.width;
-                    zt850_legend.h = img.height;
-                }, undefined, "zt850_img_legend");
+                    liz3_14.src = base64Img;
+                    liz3_14.w = img.width;
+                    liz3_14.h = img.height - 200;
+                }, undefined, "liz3_14_img");
 
                 convertImgToDataURL(t2max_img, function(base64Img, img) {
                     t2max = {
@@ -467,6 +491,24 @@
                     umidita_legend.w = img.width;
                     umidita_legend.h = img.height;
                 }, undefined, "umidita_legend_img");
+
+                convertImgToDataURL(rddd_img, function(base64Img, img) {
+                    rddd = {
+                        type: 'PNG'
+                    };
+                    rddd.src = base64Img;
+                    rddd.w = img.width;
+                    rddd.h = img.height;
+                }, undefined, "rddd_img");
+
+                convertImgToDataURL(rddd_legend_img, function(base64Img, img) {
+                    rddd_legend = {
+                        type: 'PNG'
+                    };
+                    rddd_legend.src = base64Img;
+                    rddd_legend.w = img.width;
+                    rddd_legend.h = img.height;
+                }, undefined, "rddd_legend_img");
 
                 //!pdf builder
                 var createPDF = function(update_preview) {
@@ -615,7 +657,7 @@
                     }, 194, 27);
 
                     // !user image
-                    if (zt500) {
+                    if (liz3_14_img) {
                         var img_sizes_ffwi = imgSizes(ffwi.w, ffwi.h, 100);
                         pdf.addImage(ffwi.src, ffwi.type, 10, 32, img_sizes_ffwi.w / 1.5, img_sizes_ffwi.h / 1.5, undefined, 'FAST');
 
@@ -628,21 +670,33 @@
                         var img_sizes_umidita_legend = imgSizes(umidita_legend.w, umidita_legend.h, 40);
                         pdf.addImage(umidita_legend.src, umidita_legend.type, 182, 32, img_sizes_umidita_legend.w / 2.5, img_sizes_umidita_legend.h / 2.5, undefined, 'FAST');
 
-                        var img_sizes_zt500 = imgSizes(zt500.w, zt500.h, content_width);
-                        pdf.addImage(zt500.src, zt500.type, 5, 195, img_sizes_zt500.w / 2.2, img_sizes_zt500.h / 2.2, undefined, 'FAST');
-                        _y += img_sizes_zt500.h;
+                        var img_sizes_rddd = imgSizes(rddd.w, rddd.h, 100);
+                        pdf.addImage(rddd.src, rddd.type, 5, 194, img_sizes_rddd.w / 1.5, img_sizes_rddd.h / 1.5, undefined, 'FAST');
 
-                        var img_sizes_zt500_legend = imgSizes(zt500_legend.w, zt500_legend.h, content_width);
-                        pdf.addImage(zt500_legend.src, zt500_legend.type, 15, 257, img_sizes_zt500_legend.w / 2.8, img_sizes_zt500_legend.h / 2.8, undefined, 'FAST');
-                        _y += img_sizes_zt500_legend.h;
+                        var img_sizes_rddd_legend = imgSizes(rddd_legend.w, rddd_legend.h, 25);
+                        pdf.addImage(rddd_legend.src, rddd_legend.type, 60, 194, img_sizes_rddd_legend.w / 2.0, img_sizes_rddd_legend.h / 2.0, undefined, 'FAST');
 
-                        var img_sizes_zt850 = imgSizes(zt850.w, zt850.h, content_width);
-                        pdf.addImage(zt850.src, zt850.type, 109, 195, img_sizes_zt850.w / 2.2, img_sizes_zt850.h / 2.2, undefined, 'FAST');
-                        _y += img_sizes_zt850.h;
+                        // var img_sizes_zt500 = imgSizes(zt500.w, zt500.h, content_width);
+                        // pdf.addImage(zt500.src, zt500.type, 5, 195, img_sizes_zt500.w / 2.2, img_sizes_zt500.h / 2.2, undefined, 'FAST');
+                        // _y += img_sizes_zt500.h;
 
-                        var img_sizes_zt850_legend = imgSizes(zt850_legend.w, zt850_legend.h, content_width);
-                        pdf.addImage(zt850_legend.src, zt850_legend.type, 117, 257, img_sizes_zt850_legend.w / 2.8, img_sizes_zt850_legend.h / 2.8, undefined, 'FAST');
-                        _y += img_sizes_zt850_legend.h;
+                        // var img_sizes_zt500_legend = imgSizes(zt500_legend.w, zt500_legend.h, content_width);
+                        // pdf.addImage(zt500_legend.src, zt500_legend.type, 15, 257, img_sizes_zt500_legend.w / 2.8, img_sizes_zt500_legend.h / 2.8, undefined, 'FAST');
+                        // _y += img_sizes_zt500_legend.h;
+
+                        var img_sizes_liz3_14 = imgSizes(liz3_14.w, liz3_14.h, content_width);
+                        pdf.addImage(liz3_14.src, liz3_14.type, 109, 195, img_sizes_liz3_14.w / 2.2, img_sizes_liz3_14.h / 2.2, undefined, 'FAST');
+                        // _y += img_sizes_liz3_14.h;
+
+
+
+                        // var img_sizes_zt850 = imgSizes(zt850.w, zt850.h, content_width);
+                        // pdf.addImage(zt850.src, zt850.type, 109, 195, img_sizes_zt850.w / 2.2, img_sizes_zt850.h / 2.2, undefined, 'FAST');
+                        // _y += img_sizes_zt850.h;
+                        //
+                        // var img_sizes_zt850_legend = imgSizes(zt850_legend.w, zt850_legend.h, content_width);
+                        // pdf.addImage(zt850_legend.src, zt850_legend.type, 117, 257, img_sizes_zt850_legend.w / 2.8, img_sizes_zt850_legend.h / 2.8, undefined, 'FAST');
+                        // _y += img_sizes_zt850_legend.h;
                     } else {
                         // if we haven't an image, a grey box with a text is added
                         var box_height = 80;
@@ -755,10 +809,10 @@
 
                             // 	var stringArrayIndices = [];
                             // 	var vero = true;
-                            // 	description_lines[i].split('').forEach(function (c, b) {									
+                            // 	description_lines[i].split('').forEach(function (c, b) {
                             // 		if (c === "*") {
                             // 			vero = !vero;
-                            // 			stringArrayIndices.push({"stringa": b, "inizio": vero});										
+                            // 			stringArrayIndices.push({"stringa": b, "inizio": vero});
                             // 		}
                             // 	});
 
@@ -813,9 +867,14 @@
                     pdf.setFontType("bold");
                     pdf.setTextColor(51, 122, 183);
                     pdf.setFontSize(8);
-                    pdf.textAlign(situazione_meteo_text, {
-                        align: "center"
-                    }, 0, 192);
+
+                    // pdf.textAlign(situazione_meteo_text, {
+                    //     align: "center"
+                    // }, 0, 192);
+
+                    pdf.textAlign("Indice DC previsto per oggi", {
+                        align: "left"
+                    }, 3, 192);
 
                     pdf.textAlign("DESCRIZIONE:", {
                         align: "left"
@@ -880,7 +939,7 @@
 
                     _y += vspace;
 
-                    if (zt500) {
+                    if (liz3_14_img) {
                         // var img_sizes_zt500 = imgSizes(zt500.w, zt500.h, content_width);
                         // pdf.addImage(zt500.src, zt500.type, 5, 22, img_sizes_zt500.w / 2.5, img_sizes_zt500.h / 2.5, undefined, 'FAST');
                         // _y += img_sizes_zt500.h;

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="http://www.lamma.rete.toscana.it/sites/all/themes/lamma/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="shortcut icon" href="https://geoportale.lamma.rete.toscana.it/favicon/lamma/favicon.ico">
     <title>Analisi meteo AIB - Regione Toscana</title>
 
     <!-- START STYLE SECTION -->
@@ -29,7 +29,8 @@
     <!-- Latest compiled and minified bootstrap-waitingfor JavaScript -->
     <script src='js/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js'></script>
     <!-- Latest compiled and minified jspdf JavaScript -->
-    <script src='js/jsPDF/dist/jspdf.min.js'></script>
+    <!-- <script src='js/jsPDF/dist/jspdf.min.js'></script> -->
+    <script src='js/jsPDF/dist/jspdf.debug.js'></script>
     <script src='js/jsPDF/libs/html2pdf.js'></script>
     <script src="js/utils/stopExecutionOnTimeOut.js"></script>
     <!-- Latest compiled and minified moment JavaScript -->
@@ -40,6 +41,14 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     <!-- END SCRIPT SECTION -->
+    <style>
+        .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,9 +79,9 @@
                             <label id="rischio-text" for="bollettino-rischio" class="control-label">LIVELLO DI RISCHIO:</label>
                             <div class="dropdown">
                                 <button id="bollettino-rischio" value="BASSO" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								BASSO
-								<span class="caret"></span>
-							  </button>
+                                    BASSO
+                                    <span class="caret"></span>
+                                </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="javascript:void(0);" class="rischio-basso" data-value="BASSO">BASSO</a></li>
                                     <li><a href="javascript:void(0);" class="rischio-moderato" data-value="MODERATO">MODERATO</a></li>
@@ -108,121 +117,292 @@
                 </div>
             </div>
             <div class=" col-sm-9">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p id="fwi-title" class="bg-primary text-center">INDICE FWI (comportamento del fuoco - pericolosità potenziale)
-                            <BR/>
-                        </p>
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-ffwi">Visualizza legenda</button>
-                        <div id="view-legend-ffwi" class="collapse">
-                            <img id="legend-ffwi" class="img-fluid" src="assets/img/legende/ffwi_legend.gif" alt="Legenda FFWI" style="width:180px">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#bollettino">Bollettino</a></li>
+                    <li><a data-toggle="tab" href="#scenario">Scenario di Rischio</a></li>
+                    <li><a data-toggle="tab" href="#norme">Norme comportamentali</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="bollettino" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p id="fwi-title" class="bg-primary text-center">INDICE FWI (comportamento del fuoco - pericolosità potenziale)
+                                    <BR />
+                                </p>
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-ffwi">Visualizza legenda</button>
+                                <div id="view-legend-ffwi" class="collapse">
+                                    <img id="legend-ffwi" class="img-fluid" src="assets/img/legende/ffwi_legend.gif" alt="Legenda FFWI" style="width:180px">
+                                </div>
+                                <div class="thumbnail">
+                                    <a id="ffwi-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
+                                        <img id="ffwi-image" class="img-fluid" src="" alt="FFWI" style="width:65%">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="umidita-title" class="bg-primary text-center">UMIDITA' RELATIVA MASSIMA REGISTRATA
+                                    <BR />
+                                </p>
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-umidita">Visualizza legenda</button>
+                                <div id="view-legend-umidita" class="collapse">
+                                    <img id="legend-umidita" class="img-fluid" src="assets/img/legende/umidita_legend.png" alt="Legenda UMIDITA'" style="width:140px">
+                                </div>
+                                <div class="thumbnail">
+                                    <a id="umidita-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
+                                        <img id="umidita-image" class="img-fluid" src="" alt="UMIDITA'" style="width:65%">
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="thumbnail">
-                            <a id="ffwi-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
-                                <img id="ffwi-image" class="img-fluid" src="" alt="FFWI" style="width:65%">
-                            </a>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p id="situazione-meteo-text" class="bg-primary text-center">SITUAZIONE METEO</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <p id="umidita-title" class="bg-primary text-center">UMIDITA' RELATIVA MASSIMA REGISTRATA
-                            <BR/>
-                        </p>
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-umidita">Visualizza legenda</button>
-                        <div id="view-legend-umidita" class="collapse">
-                            <img id="legend-umidita" class="img-fluid" src="assets/img/legende/umidita_legend.png" alt="Legenda UMIDITA'" style="width:140px">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="bg-info">SITUAZIONE SINOTTICA:</p>
+                            </div>
                         </div>
-                        <div class="thumbnail">
-                            <a id="umidita-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
-                                <img id="umidita-image" class="img-fluid" src="" alt="UMIDITA'" style="width:65%">
-                            </a>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p id="sinottica-text"></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p id="situazione-meteo-text" class="bg-primary text-center">SITUAZIONE METEO</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="bg-info">SITUAZIONE SINOTTICA:</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p id="sinottica-text"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="thumbnail">
-                            <a id="zt500-image-lightbox" href="assets/img/sinottiche/zt500.z3.3.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche1">
-                                <img id="zt500-image" class="img-fluid" src="assets/img/sinottiche/zt500.z3.3.png" alt="zt500.z3.3" style="width:70%">
-                            </a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p id="rddd-title" class="bg-primary text-center">INDICE DC
+                                    <BR />
+                                </p>
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#view-legend-rddd">Visualizza legenda</button>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="thumbnail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="view-legend-rddd" class="collapse">
+                                    <img id="legend-rddd" class="img-fluid" src="assets/img/legende/rddd_legend.gif" alt="Legenda DC" style="width:100px">
+                                </div>
+                                <div class="thumbnail">
+                                    <a id="rddd-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-rischio">
+                                        <img id="rddd-image" class="img-fluid" src="" alt="DC" style="width:65%">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- <div class="thumbnail">
                             <a id="zt850-image-lightbox" href="assets/img/sinottiche/zt850.z3.3.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche1">
                                 <img id="zt850-image" class="img-fluid" src="assets/img/sinottiche/zt850.z3.3.png" alt="zt850.z3.3" style="width:70%">
                             </a>
+                        </div> -->
+                                <div class="thumbnail">
+                                    <a id="liz314-image-lightbox" href="assets/img/gen/li.z3.14.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche1">
+                                        <img id="liz314-image" class="img-fluid" src="assets/img/gen/li.z3.14.png" alt="li.z3.14" style="width:86%">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="thumbnail">
+                                    <a id="t2max-image-lightbox" href="assets/img/sinottiche/t2max.z2.1.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
+                                        <img id="t2max-image" class="img-fluid" src="assets/img/sinottiche/t2max.z2.1.png" alt="t2max.z2.1" style="width:70%">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="thumbnail">
+                                    <a id="wind10-image-lightbox" href="assets/img/sinottiche/wind10.z2.5.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
+                                        <img id="wind10-image" class="img-fluid" src="assets/img/sinottiche/wind10.z2.5.png" alt="wind10.z2.5" style="width:70%">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p class="bg-primary text-center">VARIABILI METEOROLOGICHE</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p id="rh2mz3-11-ora-text" class="bg-primary text-center">12:00 ora locale</p>
+                                <div class="thumbnail">
+                                    <a id="rh2mz3_11-image-lightbox" href="assets/img/vento_umidita/rh2mz3_11.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                        <img id="rh2mz3_11-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_11.png" alt="rh2mz3" style="width:80%">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="rh2mz3-14-ora-text" class="bg-primary text-center">15:00 ora locale</p>
+                                <div class="thumbnail">
+                                    <a id="rh2mz3_14-image-lightbox" href="assets/img/vento_umidita/rh2mz3_14.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                        <img id="rh2mz3_14-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_14.png" alt="rh2mz3" style="width:80%">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p id="rh2mz3-17-ora-text" class="bg-primary text-center">18:00 ora locale</p>
+                                <div class="thumbnail">
+                                    <a id="rh2mz3_17-image-lightbox" href="assets/img/vento_umidita/rh2mz3_17.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                        <img id="rh2mz3_17-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_17.png" alt="rh2mz3" style="width:80%">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="rh2mz3-20-ora-text" class="bg-primary text-center">21:00 ora locale</p>
+                                <div class="thumbnail">
+                                    <a id="rh2mz3_20-image-lightbox" href="assets/img/vento_umidita/rh2mz3_20.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
+                                        <img id="rh2mz3_20-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_20.png" alt="rh2mz3" style="width:80%">
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="thumbnail">
-                            <a id="t2max-image-lightbox" href="assets/img/sinottiche/t2max.z2.1.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
-                                <img id="t2max-image" class="img-fluid" src="assets/img/sinottiche/t2max.z2.1.png" alt="t2max.z2.1" style="width:70%">
-                            </a>
+                    <div id="scenario" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p id="scenario-rischio-title" class="bg-primary text-center">SCENARIO DI RISCHIO
+                                    <BR />
+                                </p>
+                                <div class="thumbnail">
+                                    <a id="scenario-rischio-image-lightbox" data-type="image" href="" data-width="465" data-height="512" data-toggle="lightbox" data-gallery="aib-scenario-rischio">
+                                        <img id="scenario-rischio-image" class="img-fluid" src="" alt="SCENARIO RISCHIO" style="width:35%">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #3BBC3D;text-align: center;">RISCHIO BASSO</th>
+                                                <th style="background-color: #FEE600;text-align: center;">RISCHIO MEDIO</th>
+                                                <th style="background-color: #FF7D01;text-align: center;">RISCHIO ALTO</th>
+                                                <th style="background-color: #C80000;text-align: center;">RISCHIO MOLTO ALTO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="background-color: #3BBC3D;text-align: center;">Le condizioni meteo-climatiche e l'umidità del combustibile vegetale sono tali da generare un incendio con <strong>intensità del fuoco</strong>
+                                                    <span style="text-decoration:underline">molto bassa</span> e <strong>propagazione</strong> <span style="text-decoration:underline">molto lenta</span></td>
+                                                <td style="background-color: #FEE600;text-align: center;">Le condizioni meteo-climatiche e l'umidità del combustibile vegetale sono tali da generare un incendio con <strong>intensità del fuoco</strong>
+                                                    <span style="text-decoration:underline">bassa</span> e <strong>propagazione</strong> <span style="text-decoration:underline">lenta</span></td>
+                                                <td style="background-color: #FF7D01;text-align: center;">Le condizioni meteo-climatiche e l'umidità del combustibile vegetale sono tali da generare un incendio con <strong>intensità del fuoco</strong>
+                                                    <span style="text-decoration:underline">elevata</span> e <strong>propagazione</strong> <span style="text-decoration:underline">veloce</span></td>
+                                                <td style="background-color: #C80000;text-align: center;">Le condizioni meteo-climatiche e l'umidità del combustibile vegetale sono tali da generare un incendio con <strong>intensità del fuoco</strong>
+                                                    <span style="text-decoration:underline">molto elevata</span> e <strong>propagazione</strong> <span style="text-decoration:underline">estremamente veloce</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="thumbnail">
-                            <a id="wind10-image-lightbox" href="assets/img/sinottiche/wind10.z2.5.png" data-toggle="lightbox" data-gallery="aib-gallery-sinottiche2">
-                                <img id="wind10-image" class="img-fluid" src="assets/img/sinottiche/wind10.z2.5.png" alt="wind10.z2.5" style="width:70%">
-                            </a>
+                    <div id="norme" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p id="comportamenti-primo" class="bg-primary">L'adozione di comportamenti corretti e il buon senso sono la prima azione per ridurre la probabilità di innesco e propagazione di un incendio. Ci sono attività specifiche
+                                    che, anche se compiute senza intento doloso, possono provocare incendi:</p>
+                                <BR />
+                                </p>
+                                <div class="table-responsiver">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><img style="width:60%" id="prima" class="img-fluid center" src="assets/img/norme/prima.jpg" alt="PRIMA"></th>
+                                                <th><img style="width:60%" id="seconda" class="img-fluid center" src="assets/img/norme/seconda.jpg" alt="SECONDA"></th>
+                                                <th><img style="width:70%" id="terza" class="img-fluid center" src="assets/img/norme/terza.jpg" alt="TERZA"></th>
+                                                <th><img style="width:60%" id="quarta" class="img-fluid center" src="assets/img/norme/quarta.jpg" alt="QUARTA"></th>
+                                                <th><img style="width:60%" id="quinta" class="img-fluid center" src="assets/img/norme/quinta.jpg" alt="QUINTA"></th>
+                                                <th><img style="width:70%" id="sesta" class="img-fluid center" src="assets/img/norme/sesta.jpg" alt="SESTA"></th>
+                                                <th><img style="width:60%" id="settima" class="img-fluid center" src="assets/img/norme/settima.jpg" alt="SETTIMA"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align: center;">Abbruciamento di residui vegetali agricoli e forestali</td>
+                                                <td style="text-align: center;">Strumenti da lavoro che producono scintille e fiamme</td>
+                                                <td style="text-align: center;">Accensione di fuichi in aree attrezzate</td>
+                                                <td style="text-align: center;">Accensione di fuochi fuori dalle aree attrezzate</td>
+                                                <td style="text-align: center;">Parcheggiare l'auto sopra erba o foglie secche</td>
+                                                <td style="text-align: center;">Fuochi pirotecnici e lanterne cinesi</td>
+                                                <td style="text-align: center;">Gettare mozziconi di sigaretta o fiammiferi accesi</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="bg-primary text-center">VARIABILI METEOROLOGICHE</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p id="rh2mz3-11-ora-text" class="bg-primary text-center">12:00 ora locale</p>
-                        <div class="thumbnail">
-                            <a id="rh2mz3_11-image-lightbox" href="assets/img/vento_umidita/rh2mz3_11.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
-                                <img id="rh2mz3_11-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_11.png" alt="rh2mz3" style="width:80%">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <p id="rh2mz3-14-ora-text" class="bg-primary text-center">15:00 ora locale</p>
-                        <div class="thumbnail">
-                            <a id="rh2mz3_14-image-lightbox" href="assets/img/vento_umidita/rh2mz3_14.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
-                                <img id="rh2mz3_14-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_14.png" alt="rh2mz3" style="width:80%">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p id="rh2mz3-17-ora-text" class="bg-primary text-center">18:00 ora locale</p>
-                        <div class="thumbnail">
-                            <a id="rh2mz3_17-image-lightbox" href="assets/img/vento_umidita/rh2mz3_17.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
-                                <img id="rh2mz3_17-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_17.png" alt="rh2mz3" style="width:80%">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <p id="rh2mz3-20-ora-text" class="bg-primary text-center">21:00 ora locale</p>
-                        <div class="thumbnail">
-                            <a id="rh2mz3_20-image-lightbox" href="assets/img/vento_umidita/rh2mz3_20.png" data-toggle="lightbox" data-type="image" data-gallery="aib-gallery">
-                                <img id="rh2mz3_20-image" class="img-fluid" src="assets/img/vento_umidita/rh2mz3_20.png" alt="rh2mz3" style="width:80%">
-                            </a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p id="comportamenti-secondo" class="bg-primary">Per questo è importante essere informati sul livello di rischio quotidiano e sulla possibilità o meno di eseguire certe azioni, onde evitare di adottare comportamenti
+                                    lesivi del patrimonio boschivo e dell'incolumità della vita umana.</p>
+                                <BR />
+                                </p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>RISCHIO DI INCENDIO</th>
+                                                <th><img style="width:60%" id="prima" class="img-fluid center" src="assets/img/norme/prima.jpg" alt="PRIMA"></th>
+                                                <th><img style="width:60%" id="seconda" class="img-fluid center" src="assets/img/norme/seconda.jpg" alt="SECONDA"></th>
+                                                <th><img style="width:70%" id="terza" class="img-fluid center" src="assets/img/norme/terza.jpg" alt="TERZA"></th>
+                                                <th><img style="width:60%" id="quarta" class="img-fluid center" src="assets/img/norme/quarta.jpg" alt="QUARTA"></th>
+                                                <th><img style="width:60%" id="quinta" class="img-fluid center" src="assets/img/norme/quinta.jpg" alt="QUINTA"></th>
+                                                <th><img style="width:70%" id="sesta" class="img-fluid center" src="assets/img/norme/sesta.jpg" alt="SESTA"></th>
+                                                <th><img style="width:60%" id="settima" class="img-fluid center" src="assets/img/norme/settima.jpg" alt="SETTIMA"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="background-color: #3BBC3D;text-align: center;">BASSO</td>
+                                                <td id="basso-primo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-secondo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-terzo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-quarto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-quinto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-sesto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="basso-settimo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #FEE600;text-align: center;">MEDIO</td>
+                                                <td id="medio-primo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-secondo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-terzo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-quarto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-quinto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-sesto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="medio-settimo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #FF7D01;text-align: center;">ALTO</td>
+                                                <td id="alto-primo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-secondo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-terzo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-quarto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-quinto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-sesto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="alto-settimo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #C80000;text-align: center;">MOLTO ALTO</td>
+                                                <td id="molto-alto-primo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-secondo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-terzo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-quarto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-quinto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-sesto" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                                <td id="molto-alto-settimo" style="text-align: center;"><img style="width:80px" class="img-fluid center" src="assets/img/norme/vietato.jpg" alt="immagine"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
